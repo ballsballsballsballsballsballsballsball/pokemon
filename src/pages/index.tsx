@@ -42,6 +42,9 @@ const Pokemon = ({
                   data.sprites.versions["generation-v"]["black-white"].animated
                     .front_default ?? data.sprites.front_default
                 }
+                sx={{
+                  imageRendering: "pixelated",
+                }}
                 alt={pokemon.name}
               />
             )}
