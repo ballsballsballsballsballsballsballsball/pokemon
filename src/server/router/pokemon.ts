@@ -55,12 +55,6 @@ export const pokemonRouter = createRouter()
 
       const data: PokemonByNameResponse = await response.json();
 
-      console.log(
-        data.sprites.versions["generation-v"]["black-white"]["animated"][
-          "front_default"
-        ]
-      );
-
       return data;
     },
   });
