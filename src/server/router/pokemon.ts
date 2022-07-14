@@ -14,6 +14,15 @@ type PokemonResponse = {
 type PokemonByNameResponse = {
   sprites: {
     front_default: string;
+    versions: {
+      "generation-v": {
+        "black-white": {
+          animated: {
+            front_default: string;
+          };
+        };
+      };
+    };
   };
 };
 
@@ -24,7 +33,7 @@ export const pokemonRouter = createRouter()
     }),
     async resolve({ input }) {
       const response = await fetch(
-        `https://pokeapi.co/api/v2/pokemon/?limit=125&offset=${input.cursor}`
+        `https://pokeapi.co/api/v2/pokemon/?limit=16&offset=${input.cursor}`
       );
 
       const data: PokemonResponse = await response.json();
@@ -45,6 +54,13 @@ export const pokemonRouter = createRouter()
       );
 
       const data: PokemonByNameResponse = await response.json();
+
+      console.log(
+        data.sprites.versions["generation-v"]["black-white"]["animated"][
+          "front_default"
+        ]
+      );
+
       return data;
     },
   });
