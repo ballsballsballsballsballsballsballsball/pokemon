@@ -15,26 +15,26 @@ import { trpc } from "../utils/trpc";
 
 const Pokemon = ({
   pokemon,
+  index,
 }: {
   pokemon: {
     name: string;
     url: string;
   };
+  index: number;
 }) => {
-  const { data } = trpc.useQuery(["pokemon.byName", { name: pokemon.name }], {
-    refetchOnWindowFocus: false,
-    refetchOnMount: false,
-    refetchOnReconnect: false,
-  });
-
   return (
     <Grid.Col span={12} lg={2}>
       <Card>
         <Center>
           <Stack>
-            {data && (
-              <Image src={data.sprites.front_default} alt={pokemon.name} />
-            )}
+            <Image
+              height={100}
+              src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/${
+                index + 1
+              }.gif`}
+              alt={pokemon.name}
+            />
             <span
               style={{
                 textTransform: "capitalize",
@@ -83,8 +83,14 @@ const Home: NextPage = () => {
           >
             {data.pages.map((page) => (
               <>
-                {page.items.map((pokemon) => {
-                  return <Pokemon pokemon={pokemon} key={pokemon.name} />;
+                {page.items.map((pokemon, index) => {
+                  return (
+                    <Pokemon
+                      pokemon={pokemon}
+                      key={pokemon.name}
+                      index={index}
+                    />
+                  );
                 })}
               </>
             ))}

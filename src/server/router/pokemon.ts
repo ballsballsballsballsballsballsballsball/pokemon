@@ -24,7 +24,7 @@ export const pokemonRouter = createRouter()
     }),
     async resolve({ input }) {
       const response = await fetch(
-        `https://pokeapi.co/api/v2/pokemon/?limit=16&offset=${input.cursor}`
+        `https://pokeapi.co/api/v2/pokemon/?limit=125&offset=${input.cursor}`
       );
 
       const data: PokemonResponse = await response.json();
