@@ -6,14 +6,12 @@ import {
   Image,
   Loader,
   Stack,
-  Title,
 } from "@mantine/core";
 import { useIntersection } from "@mantine/hooks";
 import type { NextPage } from "next";
 import Head from "next/head";
 import React, { useEffect } from "react";
 import { trpc } from "../utils/trpc";
-import { inferQueryResponse } from "./api/trpc/[trpc]";
 
 const Pokemon = ({
   pokemon,
@@ -54,9 +52,15 @@ const Pokemon = ({
 };
 
 const Home: NextPage = () => {
-  const { data, fetchNextPage } = trpc.useInfiniteQuery(["pokemon.all", {}], {
-    getNextPageParam: (lastPage) => lastPage.nextCursor,
-  });
+  const { data, fetchNextPage, isFetchingNextPage } = trpc.useInfiniteQuery(
+    ["pokemon.all", {}],
+    {
+      refetchOnWindowFocus: false,
+      refetchOnMount: false,
+      refetchOnReconnect: false,
+      getNextPageParam: (lastPage) => lastPage.nextCursor,
+    }
+  );
 
   const [ref, observed] = useIntersection();
 
@@ -92,12 +96,12 @@ const Home: NextPage = () => {
         )}
       </Center>
       <Button
-        sx={{
-          visibility: "hidden",
-        }}
+        onClick={() => fetchNextPage()}
         ref={ref}
+        mt={"xl"}
+        loading={isFetchingNextPage}
       >
-        im batman
+        Next
       </Button>
     </>
   );

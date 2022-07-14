@@ -13,9 +13,3 @@ export default createNextApiHandler({
 export type inferQueryResponse<
   TRouteKey extends keyof AppRouter["_def"]["queries"]
 > = inferProcedureOutput<AppRouter["_def"]["queries"][TRouteKey]>;
-
-export const config = {
-  api: {
-    responseLimit: false,
-  },
-};
