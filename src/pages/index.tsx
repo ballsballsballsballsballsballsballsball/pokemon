@@ -32,10 +32,8 @@ const Pokemon = ({
       <Card>
         <Center>
           <Stack>
-            {data ? (
+            {data && (
               <Image src={data.sprites.front_default} alt={pokemon.name} />
-            ) : (
-              <div>Loading...</div>
             )}
             <span
               style={{
